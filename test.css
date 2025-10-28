@@ -1,4 +1,8 @@
 body {
     background-color: navajowhite;
-    width: 10%;
+    text-align: center;
+
+}
+.pastebox {
+    padding: 30%;
 }
