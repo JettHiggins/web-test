@@ -1,8 +1,8 @@
 body {
     background-color: navajowhite;
-    text-align: center;
-
 }
-.pastebox {
-    padding: 30%;
+.class {
+    width: 100px;
+    height: 100px;
+    background-color: white;
 }
