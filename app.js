@@ -5,6 +5,12 @@
 // Need to add a rich text editor to website.
 
 const quill = new Quill('#editor', {
-  modules: { toolbar: true },
-  theme: 'snow'
+  modules: { toolbar: false },
+  theme: 'snow',
+  placeholder: 'Add Image/Text'
 });
+
+let getInput = function() {
+  const contents = quill.getContents();
+  console.log(contents);
+}

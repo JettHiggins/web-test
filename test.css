@@ -1,8 +1,4 @@
-body {
-    background-color: navajowhite;
-}
-.class {
-    width: 100px;
-    height: 100px;
+.text {
+    width: 100%;
     background-color: white;
 }
