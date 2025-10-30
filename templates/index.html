@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='test.css') }}"> 
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet">
+    <div class="flex-container">
+        <div class="flex-item">
+            <div id="editor"></div>
+        </div>
+        <div class="flex-item-2">
+            <input id="clickMe" type="button" value="clickme" onclick="getInput();"/>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+    
+</body>
