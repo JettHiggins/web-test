@@ -10,6 +10,14 @@ body{
 
 .flex-item{
     width: 200px;
+    max-height: 80vh;
+    flex-grow: 1;
+    overflow: auto;
+    background-color: rgb(219, 219, 219);
+}
+.flex-item-2{
+    width: 200px;
     flex-grow: 1;
     background-color: rgb(219, 219, 219);
+    overflow: auto;
 }
