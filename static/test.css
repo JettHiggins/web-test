@@ -7,17 +7,30 @@ body{
     flex-direction: column;
     align-items: center;
 }
+.user-info {   
+    height: 3vh;
+    width: 200px;
+    align-items: center;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+.login-popup {
+    position: absolute;
+    right: 0;
+
+    height: 100%;
+}
 
 .flex-item{
     width: 200px;
     max-height: 80vh;
     flex-grow: 1;
     overflow: auto;
-    background-color: rgb(219, 219, 219);
 }
 .flex-item-2{
+    text-align: center;
     width: 200px;
     flex-grow: 1;
-    background-color: rgb(219, 219, 219);
     overflow: auto;
 }
