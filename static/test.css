@@ -7,19 +7,20 @@ body{
     flex-direction: column;
     align-items: center;
 }
-.user-info {   
+.user-info { 
+    display: flex;
+    min-height: 20px;  
     height: 3vh;
     width: 200px;
     align-items: center;
-    position: relative;
-    display: flex;
-    flex-direction: column;
 }
-.login-popup {
-    position: absolute;
-    right: 0;
 
-    height: 100%;
+.user-icon {
+    transition: all 0.4s;
+    margin-left: auto;
+}
+.user-icon:hover {
+    transform: scale(1.15);
 }
 
 .flex-item{
@@ -33,4 +34,9 @@ body{
     width: 200px;
     flex-grow: 1;
     overflow: auto;
+}
+.popup {
+    width: 100%;
+    height: 100%;
+    background-color: gray;
 }
