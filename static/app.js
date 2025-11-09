@@ -1,4 +1,11 @@
+const popup = document.querySelector('.popup')
+popup.remove()
 
+const logged_in = false
+const test_db = {
+    username : "Test",
+    password : "Password"
+};
 const quill = new Quill('#editor', {
   modules: { toolbar: false },
   theme: 'snow',
@@ -17,13 +24,9 @@ let userToggle = () => {
   else{
     document.querySelector('.popup').remove()
   }
-  
 }
 
 let showPopup = () => {
-  const popup = document.createElement('div')
   const userInfo = document.querySelector('.login-text')
-  popup.classList.add("popup")
   userInfo.append(popup)
-
 }

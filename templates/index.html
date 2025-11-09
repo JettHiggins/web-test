@@ -13,6 +13,19 @@
 
             <div class="login-text">
                 Please Login
+                <div class="popup">
+                    <form action="login" name="login" method="post">
+                        <label> Username:
+                            <input name="username" type="text" required>
+                        </label>
+                        <label> Password:
+                            <input name="password" type="text" required>
+                        </label>
+
+                        <button type="submit"> Login </button>
+                    </form>
+
+                </div>
             </div>
             <div class="user-icon" onclick="userToggle();">
                 <i class="glyphicon glyphicon-user"></i>

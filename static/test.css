@@ -38,7 +38,7 @@ body{
 .popup {
     position: fixed;
     background-color: gray;
-    opacity: 50%;
-    height: 50px;
-    width: 50px;
+    z-index: 1;
+    height: 200px;
+    width: 200px;
 }
