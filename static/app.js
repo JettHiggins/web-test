@@ -1,7 +1,6 @@
 const popup = document.querySelector('.popup')
 popup.remove()
 
-const logged_in = false
 const test_db = {
     username : "Test",
     password : "Password"
@@ -29,4 +28,13 @@ let userToggle = () => {
 let showPopup = () => {
   const userInfo = document.querySelector('.login-text')
   userInfo.append(popup)
+  
+  const form = document.querySelector('#login-form')
+  form.addEventListener('submit', login)
+}
+
+let login = (e) => {
+  const form = document.querySelector('#login-form')
+  e.preventDefault()
+  console.log(form.elements)
 }

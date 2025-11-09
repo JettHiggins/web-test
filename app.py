@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import render_template, request, redirect, url_for, jsonify
+from flask import render_template, request, redirect, url_for, jsonify, make_response
 app = Flask(__name__)
 
 @app.route("/")
@@ -8,5 +8,5 @@ def index():
 
 @app.route("/login", methods=["POST"])
 def login():
-    return redirect(url_for('index'))
+    return "Testing"
     
