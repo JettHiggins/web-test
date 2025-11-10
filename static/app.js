@@ -29,6 +29,18 @@ let showPopup = () => {
   form.addEventListener('submit', login)
 }
 
+async function userLogout() {
+  const response = await fetch("/logout", {
+    method: "POST"
+  })
+  if (response.ok){
+    const userInfo = document.querySelector('.login-text')
+    userInfo.innerText = "Please Login"
+  }
+  else {
+    console.log("Logout failed?")
+  }
+}
 async function login(e){
   const form = document.querySelector('#login-form')
   const failed_text = form.querySelector(".failed-login")
