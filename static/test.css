@@ -14,7 +14,6 @@ body{
     width: 200px;
     align-items: center;
 }
-
 .user-icon {
     transition: all 0.4s;
     margin-left: auto;
@@ -41,4 +40,7 @@ body{
     z-index: 1;
     height: 200px;
     width: 200px;
+}
+.failed-login {
+    display: none;
 }

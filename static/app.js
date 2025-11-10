@@ -1,10 +1,6 @@
 const popup = document.querySelector('.popup')
 popup.remove()
 
-const test_db = {
-    username : "Test",
-    password : "Password"
-};
 const quill = new Quill('#editor', {
   modules: { toolbar: false },
   theme: 'snow',
@@ -33,8 +29,26 @@ let showPopup = () => {
   form.addEventListener('submit', login)
 }
 
-let login = (e) => {
+async function login(e){
   const form = document.querySelector('#login-form')
+  const failed_text = form.querySelector(".failed-login")
+  const data = new FormData(form)
   e.preventDefault()
-  console.log(form.elements)
+
+  const response = await fetch("/login", {
+    method : "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({username: data.get('username'), password: data.get('password')})
+  });
+  response_data = await response.json()
+  if (response.ok) {
+    const userInfo = document.querySelector('.login-text')
+    userInfo.innerText = "User: " + response_data['username']
+    failed_text.style.display = 'none'
+  }
+  else {
+      failed_text.style.display = 'block'
+  }
 }
