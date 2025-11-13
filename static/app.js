@@ -1,6 +1,12 @@
-document.querySelector('#login-form').addEventListener('submit', login)
+const loginForm = document.querySelector('#login-form')
+const registerForm = document.querySelector("#register-form")
+const loginTab = document.querySelector("#login-tab")
+const registerTab = document.querySelector("#register-tab")
+
+loginForm.addEventListener('submit', login)
 
 const registerPopup = document.querySelector('#register-popup')
+
 
 const quill = new Quill('#editor', {
   modules: { toolbar: false },
@@ -13,17 +19,11 @@ let getInput = function() {
   console.log(contents);
 }
 
-let showLogin = () => {
-  document.querySelector("#login-form").classList.remove("hidden")
-  document.querySelector("#register-form").classList.add("hidden")
-  document.querySelector("#login-tab").classList.add("active")
-  document.querySelector("#register-tab").classList.remove("active")
-}
-let showRegistration = () => {
-  document.querySelector("#login-form").classList.add("hidden")
-  document.querySelector("#register-form").classList.remove("hidden")
-  document.querySelector("#login-tab").classList.remove("active")
-  document.querySelector("#register-tab").classList.add("active")
+let toggleTab = (isLogin) => {
+    loginForm.classList.toggle("hidden", !isLogin)
+    registerForm.classList.toggle("hidden", isLogin)
+    loginTab.classList.toggle("active", isLogin)
+    registerTab.classList.toggle("active", !isLogin)
 }
 
 let togglePopup = () => {

@@ -9,8 +9,6 @@
     <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet">
     <div class="flex-container">
         <div class="user-info">
-
-
             <div class="login-text">
                 {% if 'username' in session %}
                     User:  {{session['username']}}
@@ -19,8 +17,8 @@
                 {% endif %}
                 <div class="popup hidden" id="popup">
                     <div class="tabs"> 
-                        <button id="login-tab" class="active" onclick="showLogin();"> Login </button>
-                        <button id="register-tab"onclick ="showRegistration();"> Register </button>
+                        <button id="login-tab" class="tab active" onclick="toggleTab(true);"> Login </button>
+                        <button id="register-tab" class="tab" onclick ="toggleTab(false);"> Register </button>
                     </div>
                     <form id="login-form" action="login" name="login" method="post">
                         <label> Username:
@@ -60,5 +58,4 @@
         <input id="Logout" type="button" value="Logout" onclick="userLogout();"/>
     </div>
     <script src="{{ url_for('static', filename='app.js') }}"></script>
-    
 </body>

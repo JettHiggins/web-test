@@ -21,12 +21,13 @@ def login():
     data = request.get_json()
     if data['username'] == test_db['username'] and data['password'] == test_db['password']:
         session['username'] = data['username']
-        return {'username' : data['username']}   
-    return jsonify(description="Failed login incorrect username/pass"), 400
+        return jsonify({'success': True, 'username': data['username']}), 200
+    return jsonify({'success' : True, 'description' : "Failed login incorrect username/pass"}), 400
 
 @app.route("/logout", methods=["POST"])
 def logout():
     if 'username' in session:
-        return session.pop('username')
+        session.pop('username')
+        return jsonify(success="True"), 200
     else:
-        return "Not Logged In"
+        return jsonify(success="False"), 400
