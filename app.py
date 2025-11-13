@@ -1,16 +1,19 @@
 import os
 from dotenv import load_dotenv
 from flask import Flask, render_template, request, redirect, url_for, jsonify, make_response, session
-
+from pymongo import MongoClient
+from pymongo.server_api import ServerApi
 load_dotenv()
+
+uri = os.getenv('MONGO-URL')
+
+client = MongoClient(uri, server_api=ServerApi('1'))
+
+db = client['CloudBoard']
+collection = db['users']
 
 app = Flask(__name__)
 app.secret_key = os.getenv('FLASK-SECRET-KEY')
-
-test_db = {
-    'username' : 'Bobby',
-    'password' : 'plaintext'
-}
 
 @app.route("/")
 def index():
@@ -19,8 +22,9 @@ def index():
 @app.route("/login", methods=["POST"])
 def login():
     data = request.get_json()
-    if data['username'] == test_db['username'] and data['password'] == test_db['password']:
-        session['username'] = data['username']
+    user = collection.find_one({"username" : data['username']})
+    if data['username'] == user['username']and data['password'] == user['password']:
+        session['username'] = user['username']
         return jsonify({'success': True, 'username': data['username']}), 200
     return jsonify({'success' : True, 'description' : "Failed login incorrect username/pass"}), 400
 
@@ -31,3 +35,17 @@ def logout():
         return jsonify(success="True"), 200
     else:
         return jsonify(success="False"), 400
+
+@app.route("/register", methods=["POST"])
+def register():
+    if 'username' in session:
+        return jsonify({'success': False, 'description' : 'Already logged in'}), 400
+    data = request.get_json()
+    username = data['username']
+
+    if collection.find_one({"username" : username}) == None:
+        collection.insert_one({"username": username, "password" : data['password']})
+        session['username'] = username
+        return jsonify({'success' : True, 'username' : data['username']})
+    else:
+        return jsonify({'success' : False, 'description': 'User already exists'}) , 400

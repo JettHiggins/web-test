@@ -4,6 +4,7 @@ const loginTab = document.querySelector("#login-tab")
 const registerTab = document.querySelector("#register-tab")
 
 loginForm.addEventListener('submit', login)
+registerForm.addEventListener('submit', register)
 
 const registerPopup = document.querySelector('#register-popup')
 
@@ -42,18 +43,19 @@ async function userLogout() {
     method: "POST"
   })
   if (response.ok){
-    const userInfo = document.querySelector('.login-text')
+    const userInfo = document.querySelector('#user-text')
     userInfo.innerText = "Please Login"
   }
   else {
     console.log("Logout failed?")
   }
 }
+
 async function login(e){
-  const form = document.querySelector('#login-form')
-  const failed_text = form.querySelector(".failed-login")
-  const data = new FormData(form)
   e.preventDefault()
+
+  const failed_text = loginForm.querySelector(".failed-login")
+  const data = new FormData(loginForm)
 
   const response = await fetch("/login", {
     method : "POST",
@@ -64,11 +66,36 @@ async function login(e){
   });
   response_data = await response.json()
   if (response.ok) {
-    const userInfo = document.querySelector('.login-text')
-    userInfo.innerText = "User: " + response_data['username']
+    display_user(response_data['username'])
     failed_text.style.display = 'none'
   }
   else {
       failed_text.style.display = 'block'
   }
+}
+async function register(e){
+  e.preventDefault()
+  const data = new FormData(registerForm)
+  const failed = registerForm.querySelector(".failed-Registration")
+  const response = await fetch("/register", {
+    method : "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({username: data.get('username'), password: data.get('password')})
+  });
+  response_data = await response.json()
+  if(response.ok){
+    display_user(data.get('username'))
+    failed.classList.toggle("hidden", false)
+  }
+  else {
+    failed.classList.remove("hidden")
+    console.log("Failed Register")
+  }
+}
+
+let display_user = (Username) =>{
+  const userInfo = document.querySelector('#user-text')
+    userInfo.innerText = "User: " + Username
 }
