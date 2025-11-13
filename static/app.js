@@ -1,5 +1,6 @@
-const popup = document.querySelector('.popup')
-popup.remove()
+document.querySelector('#login-form').addEventListener('submit', login)
+
+const registerPopup = document.querySelector('#register-popup')
 
 const quill = new Quill('#editor', {
   modules: { toolbar: false },
@@ -12,21 +13,28 @@ let getInput = function() {
   console.log(contents);
 }
 
-let userToggle = () => {
-  if (document.querySelector('.popup') == null){
-    showPopup()
-  }
-  else{
-    document.querySelector('.popup').remove()
-  }
+let showLogin = () => {
+  document.querySelector("#login-form").classList.remove("hidden")
+  document.querySelector("#register-form").classList.add("hidden")
+  document.querySelector("#login-tab").classList.add("active")
+  document.querySelector("#register-tab").classList.remove("active")
+}
+let showRegistration = () => {
+  document.querySelector("#login-form").classList.add("hidden")
+  document.querySelector("#register-form").classList.remove("hidden")
+  document.querySelector("#login-tab").classList.remove("active")
+  document.querySelector("#register-tab").classList.add("active")
 }
 
-let showPopup = () => {
-  const userInfo = document.querySelector('.login-text')
-  userInfo.append(popup)
-  
-  const form = document.querySelector('#login-form')
-  form.addEventListener('submit', login)
+let togglePopup = () => {
+  const Popup = document.querySelector('#popup') 
+  if (Popup.classList.contains("hidden")) {
+    Popup.classList.remove("hidden")
+  }
+  else {
+    Popup.classList.add("hidden")
+  }
+
 }
 
 async function userLogout() {

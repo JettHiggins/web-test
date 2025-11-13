@@ -21,7 +21,6 @@ body{
 .user-icon:hover {
     transform: scale(1.15);
 }
-
 .flex-item{
     width: 200px;
     max-height: 80vh;
@@ -42,5 +41,16 @@ body{
     width: 200px;
 }
 .failed-login {
+    display: none;
+}
+.tabs{
+    display: flex;
+    justify-content: space-evenly;
+
+}
+.active { 
+    background-color: aliceblue;
+}
+.hidden {
     display: none;
 }

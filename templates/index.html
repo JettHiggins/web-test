@@ -17,7 +17,11 @@
                 {% else %}
                     Please Login 
                 {% endif %}
-                <div class="popup">
+                <div class="popup hidden" id="popup">
+                    <div class="tabs"> 
+                        <button id="login-tab" class="active" onclick="showLogin();"> Login </button>
+                        <button id="register-tab"onclick ="showRegistration();"> Register </button>
+                    </div>
                     <form id="login-form" action="login" name="login" method="post">
                         <label> Username:
                             <input name="username" type="text" required>
@@ -29,10 +33,20 @@
                         <button type="submit"> Login </button>
                         <div class="failed-login"> Failed Login! </div>
                     </form>
+                    <form class="hidden" id="register-form" action="register" name="register" method="post">
+                        <label> Username:
+                            <input name="username" type="text" required>
+                        </label>
+                        <label> Password:
+                            <input name="password" type="text" required>
+                        </label>
 
+                        <button type="submit"> Register </button>
+                        <div class="failed-Registration hidden"> Failed Registration! </div>
+                    </form>
                 </div>
             </div>
-            <div class="user-icon" onclick="userToggle();">
+            <div class="user-icon" onclick="togglePopup();">
                 <i class="glyphicon glyphicon-user"></i>
             </div>    
 
