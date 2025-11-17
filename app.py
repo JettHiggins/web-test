@@ -23,10 +23,12 @@ def index():
 def login():
     data = request.get_json()
     user = collection.find_one({"username" : data['username']})
+    if user == None:
+        return jsonify({'success' : False, 'description' : "No User found"}), 401
     if data['username'] == user['username']and data['password'] == user['password']:
         session['username'] = user['username']
         return jsonify({'success': True, 'username': data['username']}), 200
-    return jsonify({'success' : True, 'description' : "Failed login incorrect username/pass"}), 400
+    return jsonify({'success' : False, 'description' : "Failed login incorrect username/pass"}), 401
 
 @app.route("/logout", methods=["POST"])
 def logout():
@@ -39,7 +41,7 @@ def logout():
 @app.route("/register", methods=["POST"])
 def register():
     if 'username' in session:
-        return jsonify({'success': False, 'description' : 'Already logged in'}), 400
+        return jsonify({'success': False, 'description' : 'Already logged in'}), 409
     data = request.get_json()
     username = data['username']
 
@@ -48,4 +50,4 @@ def register():
         session['username'] = username
         return jsonify({'success' : True, 'username' : data['username']})
     else:
-        return jsonify({'success' : False, 'description': 'User already exists'}) , 400
+        return jsonify({'success' : False, 'description': 'User already exists'}) , 409

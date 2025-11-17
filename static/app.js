@@ -87,11 +87,10 @@ async function register(e){
   response_data = await response.json()
   if(response.ok){
     display_user(data.get('username'))
-    failed.classList.toggle("hidden", false)
+    failed.classList.toggle("hidden", true)
   }
   else {
     failed.classList.remove("hidden")
-    console.log("Failed Register")
   }
 }
 
