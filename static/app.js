@@ -8,7 +8,6 @@ registerForm.addEventListener('submit', register)
 
 const registerPopup = document.querySelector('#register-popup')
 
-
 const quill = new Quill('#editor', {
   modules: { toolbar: false },
   theme: 'snow',
@@ -16,8 +15,21 @@ const quill = new Quill('#editor', {
 });
 
 let getInput = function() {
-  const contents = quill.getContents();
-  console.log(contents);
+  //Current Problem - Images dont have a \n in front of them or automatically placed before 
+
+  delta = quill.getContents();
+  let clipboard = '';
+  delta['ops'].forEach(element => {
+        if (element['insert'] != undefined){
+          if (element['insert']['image'] != undefined){
+            clipboard += 'Image here';
+          }
+          else {
+            clipboard += element['insert']
+          }
+        }
+  });
+  console.log(clipboard)
 }
 
 let toggleTab = (isLogin) => {
