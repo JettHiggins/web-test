@@ -15,21 +15,30 @@ const quill = new Quill('#editor', {
 });
 
 let getInput = function() {
-  //Current Problem - Images dont have a \n in front of them or automatically placed before 
-
   delta = quill.getContents();
-  let clipboard = '';
+  let clipboard = [];
   delta['ops'].forEach(element => {
         if (element['insert'] != undefined){
           if (element['insert']['image'] != undefined){
-            clipboard += 'Image here';
+            clipboard.push(element['insert']['image'])
           }
           else {
-            clipboard += element['insert']
+            clipboard.push(element['insert'])
           }
         }
   });
-  console.log(clipboard)
+  sendPayload(clipboard);
+}
+
+let sendPayload = async(payload) => {
+  //Payload is an array of strings either containing an image or a string of text
+  const response = await fetch('/api/send' , {
+    method : "POST",
+    headers : {
+      'Content-Type' : 'application/json'
+    },
+    body : JSON.stringify(payload),
+  });
 }
 
 let toggleTab = (isLogin) => {

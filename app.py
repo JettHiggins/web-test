@@ -10,7 +10,8 @@ uri = os.getenv('MONGO-URL')
 client = MongoClient(uri, server_api=ServerApi('1'))
 
 db = client['CloudBoard']
-collection = db['users']
+users = db['users']
+uploads = db['uploads']
 
 app = Flask(__name__)
 app.secret_key = os.getenv('FLASK-SECRET-KEY')
@@ -22,7 +23,7 @@ def index():
 @app.route("/login", methods=["POST"])
 def login():
     data = request.get_json()
-    user = collection.find_one({"username" : data['username']})
+    user = users.find_one({"username" : data['username']})
     if user == None:
         return jsonify({'success' : False, 'description' : "No User found"}), 401
     if data['username'] == user['username']and data['password'] == user['password']:
@@ -45,9 +46,17 @@ def register():
     data = request.get_json()
     username = data['username']
 
-    if collection.find_one({"username" : username}) == None:
-        collection.insert_one({"username": username, "password" : data['password']})
+    if users.find_one({"username" : username}) == None:
+        users.insert_one({"username": username, "password" : data['password']})
         session['username'] = username
         return jsonify({'success' : True, 'username' : data['username']})
     else:
         return jsonify({'success' : False, 'description': 'User already exists'}) , 409
+
+@app.route("/api/send" , methods=['POST'])
+def send_payload():
+    if not 'username' in session:
+        return jsonify({'success': False, 'description' : 'Not Logged in'}), 401
+    uploads.insert_one({'username' : session['username'], 'payload' : request.json['content'], 'date' : request.json['date']})
+    return jsonify({'success': True, 'description' : 'Sent Payload : ' + str(request.json)}) , 200
+    
