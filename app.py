@@ -57,6 +57,6 @@ def register():
 def send_payload():
     if not 'username' in session:
         return jsonify({'success': False, 'description' : 'Not Logged in'}), 401
-    uploads.insert_one({'username' : session['username'], 'payload' : request.json['content'], 'date' : request.json['date']})
+    uploads.insert_one({'username' : session['username'], 'payload' : request.json['payload']})
     return jsonify({'success': True, 'description' : 'Sent Payload : ' + str(request.json)}) , 200
-    
+    #return str(request.get_json()['date'])

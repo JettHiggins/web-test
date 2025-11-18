@@ -32,12 +32,17 @@ let getInput = function() {
 
 let sendPayload = async(payload) => {
   //Payload is an array of strings either containing an image or a string of text
+
+  //Current Problem: Need to attach a date to the request body so I can set the TTL.
   const response = await fetch('/api/send' , {
     method : "POST",
     headers : {
       'Content-Type' : 'application/json'
     },
-    body : JSON.stringify(payload),
+    body : JSON.stringify({
+      'payload' : payload,
+      'date ' : new Date()
+    })
   });
 }
 
