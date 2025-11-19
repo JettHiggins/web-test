@@ -19,12 +19,7 @@ let getInput = function() {
   let clipboard = [];
   delta['ops'].forEach(element => {
         if (element['insert'] != undefined){
-          if (element['insert']['image'] != undefined){
-            clipboard.push(element['insert']['image'])
-          }
-          else {
             clipboard.push(element['insert'])
-          }
         }
   });
   sendPayload(clipboard);
@@ -32,16 +27,14 @@ let getInput = function() {
 
 let sendPayload = async(payload) => {
   //Payload is an array of strings either containing an image or a string of text
-
-  //Current Problem: Need to attach a date to the request body so I can set the TTL.
-  const response = await fetch('/api/send' , {
+  await fetch('/api/send' , {
     method : "POST",
     headers : {
       'Content-Type' : 'application/json'
     },
     body : JSON.stringify({
       'payload' : payload,
-      'date ' : new Date()
+      'date' : new Date()
     })
   });
 }
@@ -118,6 +111,29 @@ async function register(e){
   else {
     failed.classList.remove("hidden")
   }
+}
+
+async function fetch_clipboard(){
+  const response = await fetch('/api/recieve', {
+    method : "POST"
+  })
+  if (response.ok) {
+    clear_quill()
+    data = await response.json()
+    data['payload'].forEach((element) => {
+        if (typeof element !== 'string'){
+          quill.insertEmbed(quill.getLength, 'image', element['image'])
+        }
+        else {
+          quill.insertText(quill.getLength, element)
+        }
+      }
+    ) 
+  }
+}
+
+let clear_quill = () => {
+  quill.deleteText(0, quill.getLength())
 }
 
 let display_user = (Username) =>{
