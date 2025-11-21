@@ -1,6 +1,7 @@
 ## Next Features To Add
+- [ ] Find a way to limit registrations
 
-- [ ] Add Password hashing and salting
+- [ ] Intercept copy event, put information the clipboard can actually store as a BLOB object.
 
 - [ ] Only 1 Upload at a Time Enforcement
 
