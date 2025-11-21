@@ -3,6 +3,8 @@ const registerForm = document.querySelector("#register-form")
 const loginTab = document.querySelector("#login-tab")
 const registerTab = document.querySelector("#register-tab")
 
+
+
 loginForm.addEventListener('submit', login)
 registerForm.addEventListener('submit', register)
 
@@ -13,7 +15,6 @@ const quill = new Quill('#editor', {
   theme: 'snow',
   placeholder: 'Add Image/Text'
 });
-
 let getInput = function() {
   delta = quill.getContents();
   let clipboard = [];
@@ -140,3 +141,14 @@ let display_user = (Username) =>{
   const userInfo = document.querySelector('#user-text')
     userInfo.innerText = "User: " + Username
 }
+
+const editor = document.querySelector("#editor")
+editor.addEventListener('copy', copy_editor , {capture : true})
+
+function copy_editor(e) {
+
+  e.preventDefault();
+  //e.clipboardData.setData('text/plain', "TEST");
+
+}
+

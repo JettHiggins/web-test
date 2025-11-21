@@ -1,4 +1,5 @@
 ## Next Features To Add
+- [ ] Add a "Copy event listener" to convert all Base64 images to blobs
 
 - [ ] Add Password hashing and salting
 
