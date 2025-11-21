@@ -69,7 +69,7 @@ def send_payload():
     user = users.find_one({"username": session['username']})
 
     #insert user ID with data - Automatically deletes in 10 seconds 
-    uploads.insert_one({'user_id' : user['_id'], 'payload' : request.json['payload'], 'date-created' : datetime.fromisoformat(request.json['date'])})
+    uploads.replace_one({'user_id' : user['_id']} , {'user_id' : user['_id'], 'payload' : request.json['payload'], 'date-created' : datetime.fromisoformat(request.json['date'])}, True)
     return jsonify({'success': True, 'description' : 'Sent Payload : ' + str(request.json)}) , 200
 
 @app.route("/api/recieve", methods=['POST'])
